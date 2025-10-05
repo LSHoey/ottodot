@@ -2,26 +2,157 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Import fun Google Fonts for kids */
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One:wght@400&family=Nunito:wght@400;600;700;800;900&display=swap');
+
 :root {
   --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+  --background-color: 250, 245, 255;
 }
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background-color: rgb(var(--background-color));
+  font-family: 'Nunito', sans-serif;
+  padding: 0 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+}
+
+/* Center container for main content */
+.main-container {
+  width: 100%;
+  max-width: 600px;
+  min-width: 20rem;
+  margin: 0 auto;
+}
+
+/* Custom animations for kid-friendly effects - reduced intensity */
+@keyframes wiggle {
+
+  0%,
+  7% {
+    transform: rotateZ(0);
+  }
+
+  15% {
+    transform: rotateZ(-5deg);
+  }
+
+  20% {
+    transform: rotateZ(3deg);
+  }
+
+  25% {
+    transform: rotateZ(-3deg);
+  }
+
+  30% {
+    transform: rotateZ(2deg);
+  }
+
+  35% {
+    transform: rotateZ(-1deg);
+  }
+
+  40%,
+  100% {
+    transform: rotateZ(0);
+  }
+}
+
+@keyframes rainbow {
+  0% {
+    color: #3b82f6;
+  }
+
+  25% {
+    color: #8b5cf6;
+  }
+
+  50% {
+    color: #ec4899;
+  }
+
+  75% {
+    color: #10b981;
+  }
+
+  100% {
+    color: #3b82f6;
+  }
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-wiggle {
+  animation: wiggle 3s ease-in-out infinite;
+}
+
+.animate-rainbow {
+  animation: rainbow 4s linear infinite;
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+/* Fun title font */
+.fun-title {
+  font-family: 'Fredoka One', cursive;
+}
+
+/* Modern button effects */
+.bouncy-button {
+  transition: all 0.2s ease;
+  border-radius: 12px;
+  font-weight: 600;
+  letter-spacing: 0.025em;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.bouncy-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.bouncy-button:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Gentle glow effect for correct answers */
+.glow-green {
+  box-shadow: 0 0 15px rgba(34, 197, 94, 0.3);
+}
+
+/* Subtle sparkle effect */
+@keyframes sparkle {
+
+  0%,
+  100% {
+    opacity: 0.7;
+    transform: scale(0.9);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.sparkle {
+  animation: sparkle 2s ease-in-out infinite;
 }

@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { mathProblemApi } from '../lib/api'
 
 interface MathProblem {
   problem_text: string
@@ -15,24 +16,63 @@ export default function Home() {
   const [sessionId, setSessionId] = useState<string | null>(null)
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null)
 
+  const resetAllState = () => {
+    setProblem(null)
+    setUserAnswer('')
+    setFeedback('')
+    setSessionId(null)
+    setIsCorrect(null)
+  }
+
   const generateProblem = async () => {
-    // TODO: Implement problem generation logic
-    // This should call your API route to generate a new problem
-    // and save it to the database
+    setIsLoading(true)
+    resetAllState();
+    
+    try {
+      const data = await mathProblemApi.generateProblem();
+      setProblem({ 
+        problem_text: data.problem_text, 
+        final_answer: 0 // Don't expose answer to frontend
+      });
+      setSessionId(data.id);
+    } catch (error) {
+      console.error('Error generating problem:', error);
+      setFeedback('Sorry, there was an error generating a new problem. Please try again.');
+      setIsCorrect(false);
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   const submitAnswer = async (e: React.FormEvent) => {
     e.preventDefault()
-    // TODO: Implement answer submission logic
-    // This should call your API route to check the answer,
-    // save the submission, and generate feedback
+    if (!sessionId || !userAnswer) return
+    
+    setIsLoading(true)
+    
+    try {
+      const data = await mathProblemApi.submitAnswer(sessionId, parseInt(userAnswer, 10));
+      setIsCorrect(data.is_correct);
+      
+      if (data.is_correct) {
+        setFeedback(data.feedback);
+      } else {
+        setFeedback(`${data.feedback}\n\nThe correct answer was: ${data.correct_answer}`);
+      }
+    } catch (error) {
+      console.error('Error submitting answer:', error);
+      setFeedback('Sorry, there was an error submitting your answer. Please try again.');
+      setIsCorrect(false);
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
-      <main className="container mx-auto px-4 py-8 max-w-2xl">
-        <h1 className="text-4xl font-bold text-center mb-8 text-gray-800">
-          Math Problem Generator
+    <div className="min-h-screen bg-purple-50">
+      <main className="main-container py-8 px-4">
+        <h1 className="text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 mb-4 text-center fun-title">
+          Math Adventure!
         </h1>
         
         <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
@@ -84,7 +124,7 @@ export default function Home() {
             <h2 className="text-xl font-semibold mb-4 text-gray-700">
               {isCorrect ? '✅ Correct!' : '❌ Not quite right'}
             </h2>
-            <p className="text-gray-800 leading-relaxed">{feedback}</p>
+            <p className="text-gray-800 leading-relaxed whitespace-pre-line">{feedback}</p>
           </div>
         )}
       </main>

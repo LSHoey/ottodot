@@ -4,6 +4,9 @@
 
 This is a starter kit for building an AI-powered math problem generator application. The goal is to create a standalone prototype that uses AI to generate math word problems suitable for Primary 5 students, saves the problems and user submissions to a database, and provides personalized feedback.
 
+NEXT_PUBLIC_SUPABASE_URL=https://gmmrgqwpwbsfwrsbirpl.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdtbXJncXdwd2JzZndyc2JpcnBsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk1OTE5NDQsImV4cCI6MjA3NTE2Nzk0NH0.Vcmjder6GaI2uU7zuwrr5rszvzhqIQ9GLMAV7dmL8Nk
+
 ## Tech Stack
 
 - **Frontend Framework**: Next.js 14 (App Router)
@@ -81,6 +84,7 @@ Complete the TODO sections in the main page component:
 Create a new API route that handles:
 
 #### POST /api/math-problem (Generate Problem)
+
 - Use Google's Gemini AI to generate a math word problem
 - The AI should return JSON with:
   ```json
@@ -93,6 +97,7 @@ Create a new API route that handles:
 - Return the problem and session ID to the frontend
 
 #### POST /api/math-problem/submit (Submit Answer)
+
 - Receive the session ID and user's answer
 - Check if the answer is correct
 - Use AI to generate personalized feedback based on:
@@ -136,13 +141,13 @@ When submitting your assessment, provide:
 
 ## Implementation Notes
 
-*Please fill in this section with any important notes about your implementation, design decisions, challenges faced, or features you're particularly proud of.*
+_Please fill in this section with any important notes about your implementation, design decisions, challenges faced, or features you're particularly proud of._
 
 ### My Implementation:
 
-- 
-- 
-- 
+-
+-
+-
 
 ## Additional Features (Optional)
 
